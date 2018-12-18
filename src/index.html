@@ -27,10 +27,8 @@
     <h1><code>debounce</code> vs&nbsp;<code>throttle</code></h1>
     <p>confused with <code>debounce</code> and <code>throttle</code>?</p>
     <p>
-      click anywhere on this page and observe the difference,<br/>
-      try clicking multiple times in a short timespan for the best effect
-    </p>
-    <p class="rxjs-info">
+      click anywhere on this page and observe the difference,<br class="sm-hide" />
+      try clicking multiple times in a short timespan for the best effect<br />
       (the demo uses
       <a href="https://github.com/ReactiveX/rxjs">rxjs v6</a>
       under the hood)
@@ -45,7 +43,7 @@
     <h2 class="timeline-box-heading"><code>.debounceTime(2000)</code></h2>
     <p class="timeline-box-explanation">
       emits only after 2 seconds has passed without another emission
-      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/debounceTime">docs</a>)<br/>
+      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/debounceTime">docs</a>)<br />
       example: debouncing search input changes so expensive searches are not run while a user is typing
     </p>
     <div id="debounce-timeline" class="timeline"></div>
@@ -53,8 +51,8 @@
   <section class="timeline-box">
     <h2 class="timeline-box-heading"><code>.throttleTime(2000)</code></h2>
     <p class="timeline-box-explanation">
-      emits and then ignores subsequent emissions for 2nbps;seconds
-      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/throttleTime">docs</a>)<br/>
+      emits and then ignores subsequent emissions for 2&nbsp;seconds
+      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/throttleTime">docs</a>)<br />
       example: throttling "refresh data" action to avoid multiple requests sent at the same time
     </p>
     <div id="throttle-timeline" class="timeline"></div>
