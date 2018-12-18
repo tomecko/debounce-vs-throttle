@@ -29,6 +29,14 @@ const throttled$ = multi$.pipe(throttleTime(DELAY_TIME));
 
 multi$.connect();
 
+const getStyle = color => percentages => percentages.length === 0 ?
+  '' :
+  `background: linear-gradient(90deg, ${percentages.map(percentage => `
+transparent ${percentage}%,
+${color} ${percentage}%,
+${color} calc(${percentage}% + ${MARK_WIDTH}),
+transparent calc(${percentage}% + ${MARK_WIDTH})`).join(', ')});`.replace('\n', ' ');
+
 const visualize = (source$, elementId, color) => {
   const $element = document.getElementById(elementId);
   const sourceTransformed$ = source$.pipe(
@@ -44,13 +52,7 @@ const visualize = (source$, elementId, color) => {
     distinctUntilChanged((a, b) => a === b || a.length === 0 && b.length === 0),
     map(ts => ts.map(t => TIMELINE_LENGTH - getT() + t)),
     map(ts => ts.map(t => (t / TIMELINE_LENGTH * 100).toFixed(5))),
-    map(percentages => percentages.length === 0 ?
-      '' :
-      `background: linear-gradient(90deg, ${percentages.map(percentage => `
-transparent ${percentage}%,
-${color} ${percentage}%,
-${color} calc(${percentage}% + ${MARK_WIDTH}),
-transparent calc(${percentage}% + ${MARK_WIDTH})`).join(', ')});`.replace('\n', ' ')),
+    map(getStyle(color))
   )
     .subscribe(style => {
       $element.setAttribute('style', style);
