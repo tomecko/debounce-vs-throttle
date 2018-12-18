@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "build:prod": "rm -rf node_modules dist && yarn && yarn build && cp .htaccess dist"
   },
   "dependencies": {
     "normalize.css": "8.0.1",
