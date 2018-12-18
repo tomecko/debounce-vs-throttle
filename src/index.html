@@ -4,14 +4,51 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title></title>
+  <title>debounce vs throttle</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="../node_modules/normalize.css/normalize.css" rel="stylesheet">
+  <link href="./style.scss" rel="stylesheet">
 </head>
 
 <body>
-  <p>TBD!</p>
-  <script src="js/main.js"></script>
+  <header class="header">
+    <h1><code>debounce</code> vs&nbsp;<code>throttle</code></h1>
+    <p>confused with <code>debounce</code> and <code>throttle</code>?</p>
+    <p>
+      click anywhere on this page and observe the difference,
+      try clicking multiple times in a short timespan for the best effect
+    </p>
+    <p>
+      (the demo uses
+      <a href="https://github.com/ReactiveX/rxjs">rxjs</a>
+      under the hood)
+    </p>
+  </header>
+  <section class="timeline-box clicked-timeline-box">
+    <h2 class="timeline-box-heading"><code>all clicks</code></h2>
+    <p class="timeline-box-explanation">just all clicks, no operation applied</p>
+    <div id="clicked-timeline" class="timeline"></div>
+  </section>
+  <section class="timeline-box">
+    <h2 class="timeline-box-heading"><code>.debounceTime(2000)</code></h2>
+    <p class="timeline-box-explanation">
+      emits only after 2 seconds has passed without another emission
+      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/debounceTime">docs</a>)<br/>
+      example: debouncing search input so expensive searches are not run while a user is typing
+    </p>
+    <div id="debounce-timeline" class="timeline"></div>
+  </section>
+  <section class="timeline-box">
+    <h2 class="timeline-box-heading"><code>.throttleTime(2000)</code></h2>
+    <p class="timeline-box-explanation">
+      emits and then ignores subsequent emissions for 2 seconds
+      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/throttleTime">docs</a>)<br/>
+      example: throttling "refresh data" action to avoid multiple requests sent at the same time
+    </p>
+    <div id="throttle-timeline" class="timeline"></div>
+  </section>
+  <script src="main.js"></script>
 </body>
 
 </html>
