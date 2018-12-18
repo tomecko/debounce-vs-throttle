@@ -10,6 +10,10 @@ body {
   user-select: none;
 }
 
+p {
+  line-height: 1.35;
+}
+
 code {
   background: #f4d35e;
   border-radius: 2px;
@@ -39,6 +43,10 @@ code {
     margin: 0;
     margin-bottom: .3em;
   }
+}
+
+.rxjs-info {
+  font-style: italic;
 }
 
 .timeline-box {
@@ -74,6 +82,10 @@ code {
   body {
     font-size: .8em;
     text-align: left;
+  }
+
+  .sm-hide {
+    display: none;
   }
 
   .timeline {
