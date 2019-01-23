@@ -14,6 +14,7 @@ import {
 import { DELAY_TIME, TICK, TIMELINE_LENGTH } from './config';
 import { createElement } from './create-element';
 import { getIdFactory } from './get-id';
+import { handleDOM } from './handleDOM';
 
 const getId = getIdFactory();
 const getT = () => Date.now();
@@ -48,23 +49,7 @@ const visualize = (source$, name) => {
     map(values => values.map(value => ({ ...value, t: TIMELINE_LENGTH - getT() + value.t }))),
     map(values => values.map(value => ({ ...value, progress: (value.t / TIMELINE_LENGTH * 100).toFixed(2) }))),
   )
-    .subscribe(values => {
-      values.forEach(({ element, progress }) => {
-        if (!document.getElementById(element.getAttribute('id'))) {
-          document.getElementById(`timeline-${name}`).append(element);
-        }
-        element.setAttribute('style', `bottom: ${progress}%`);
-      });
-      const idsToShow = values.map(({ element }) => element.getAttribute('id'));
-      Array.from(document
-        .getElementById(`timeline-${name}`)
-        .getElementsByClassName('timeline-item'))
-        .forEach(item => {
-          if (!idsToShow.includes(item.getAttribute('id'))) {
-            item.parentNode.removeChild(item);
-          }
-        })
-    });
+    .subscribe(handleDOM(name));
 }
 
 visualize(clicked$, 'clicked');
