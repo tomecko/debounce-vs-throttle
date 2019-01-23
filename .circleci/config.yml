@@ -1,0 +1,55 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:10.14.1
+    steps:
+      - checkout
+      - run: ls -larth
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run: yarn test
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - attach_workspace:
+          at: .
+      - add_ssh_keys:
+          fingerprints:
+            - "c8:14:9d:3b:57:2f:b0:2f:f7:44:5c:08:b0:c7:a1:8c"
+      - run: echo $REMOTE_HOSTKEY >> ~/.ssh/known_hosts
+      - run:
+          name: Deploy Over SSH
+          no_output_timeout: 1m
+          command: |
+            ls -larth
+            ssh -p 222 $SSH_USER@$SSH_HOST "rm -rf ~/domains/debounce-vs-throttle.tomaszoledzki.pl/public_html/web"
+            mv dist web
+            scp -P 222 -r web $SSH_USER@$SSH_HOST:~/domains/debounce-vs-throttle.tomaszoledzki.pl/public_html
+
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+
+# https://forestry.io/blog/circleci-deploy-via-rsync/

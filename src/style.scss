@@ -1,94 +1,125 @@
+$primary: #00838f;
+$primaryFont: #eee;
+
 body {
-  background: #ebebd3;
-  color: #222;
+  align-items: stretch;
   display: flex;
   flex-direction: column;
+
+  background: #eee;
   font-family: sans-serif;
-  font-size: 1.4em;
   height: 100vh;
   min-width: 300px;
-  text-align: center;
-  user-select: none;
 }
 
-p {
-  line-height: 1.35;
+@media (max-width: 500px) {
+  body {
+    font-size: .6em;
+  }
 }
 
-code {
-  background: #f4d35e;
-  border-radius: 2px;
-  font-family: monospace;
-  padding: 0 3px;
-}
+.timeline-headers {
+  flex: 0 0 auto;
 
-.header,
-.timeline-box {
+  align-items: stretch;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.header {
-  background: #8b8bae;
-  border-bottom: 1px solid #444;
-  padding: .5em;
+  border-bottom: 1px solid #000;
 
-  h1 {
-    margin: 0;
-    margin-bottom: .3em;
+  .timeline-header {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ccc;
+    padding-bottom: .5em;
+    text-align: center;
+
+    h2 {
+      background: #333;
+      color: #eee;;
+      font-size: 1.5em;
+      margin: 0 0 .5em 0;
+      padding: 1em;
+    }
+
+    p {
+      margin-bottom: .3em;
+      margin-top: 0;
+    }
+
+    .example {
+      font-size: .9em;
+      font-style: italic;
+    }
+
   }
 
-  p {
-    margin: 0;
-    margin-bottom: .3em;
-  }
-}
-
-.rxjs-info {
-  font-style: italic;
-}
-
-.timeline-box {
-  border-bottom: 1px solid #777;
-  padding: 1.2em .5em;
-}
-
-.timeline-box-heading {
-  margin: 0;
-  margin-bottom: .3em;
-}
-
-.timeline-box-explanation {
-  color: #555;
-  margin-top: 0;
-}
-
-.timeline {
-  $border-color: #bbb;
-  border-bottom: 1px solid $border-color;
-  border-top: 1px solid $border-color;
-  height: 30px;
-  margin: 0 -.5em;
-}
-
-@media (max-width: 960px) {
-  body {
-    font-size: 1em;
+  .timeline-header-auxiliary {
+    flex: 0 0 auto;
   }
 }
 
-@media (max-width: 560px) {
-  body {
-    font-size: .75em;
-    text-align: left;
-  }
+.timelines {
+  flex: 1;
 
-  .sm-hide {
-    display: none;
-  }
+  display: flex;
+
+  cursor: pointer;
+  user-select: none;
 
   .timeline {
-    height: 20px;
+    flex: 1;
+
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+
+    .timeline-item {
+      $size: 3vh;
+
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, $size);
+
+      background: $primary;
+      border: 1px solid #aaa;
+      border-radius: 50%;
+      color: $primaryFont;
+      font-size: $size * 0.7;
+      font-weight: bold;
+      height: $size;
+      line-height: $size;
+      text-transform: uppercase;
+      width: $size;
+    }
+
+  }
+
+  .timeline-auxiliary {
+    flex: 0 40px;
+  }
+}
+
+.emit-event {
+  flex: 0 0 100px;
+
+  height: 100px;
+  width: 100%;
+
+  background: $primary;
+  color: $primaryFont;
+  cursor: pointer;
+
+  strong {
+    display: block;
+    font-size: 1.8em;
+    margin-bottom: .2em;
+    text-transform: uppercase;
+  }
+
+  small {
+    font-size: 1.2em;
   }
 }
