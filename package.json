@@ -1,12 +1,11 @@
 {
   "name": "debounce-throttle",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "scripts": {
     "dev": "parcel -d 'dev' src/index.html",
     "build": "parcel build src/index.html",
-    "build:prod": "rm -rf node_modules dist && yarn && yarn build && cp .htaccess dist"
+    "build:prod": "rm -rf node_modules dist && yarn && yarn build && cp .htaccess dist",
+    "test": "yarn check --integrity && yarn build:prod"
   },
   "dependencies": {
     "normalize.css": "8.0.1",
