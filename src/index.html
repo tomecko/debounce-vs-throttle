@@ -27,7 +27,7 @@
       <h2>debounce</h2>
       <p>emits only after 2s has&nbsp;passed without another emission</p>
       <p class="example">
-        example: debouncing search input changes<br/>so expensive searches
+        example: debouncing search input changes<br class="md"/>so expensive searches
         are not run while a user is typing
       </p>
     </header>
@@ -39,7 +39,7 @@
       <h2>throttle</h2>
       <p>emits and then ignores subsequent emissions for&nbsp;2s</p>
       <p class="example">
-        example: throttling "refresh data" action<br/>to avoid multiple requests sent at the same time
+        example: throttling "refresh data" action<br class="md"/>to avoid multiple requests sent at the same time
       </p>
     </header>
   </section>
@@ -52,39 +52,6 @@
     <strong>emit event</strong>
     <small>try multiple events one after another for&nbsp;the&nbsp;best&nbsp;effect</small>
   </button>
-  <!-- <header class="header">
-    <h1><code>debounce</code> vs&nbsp;<code>throttle</code></h1>
-    <p>
-      <strong>click anywhere</strong> on this page and observe the difference,<br class="sm-hide" />
-      try clicking multiple times at once for the best effect<br />
-      (the demo uses
-      <a href="https://github.com/ReactiveX/rxjs">rxjs v6</a>
-      under the hood)
-    </p>
-  </header>
-  <section class="timeline-box clicked-timeline-box">
-    <h2 class="timeline-box-heading"><code>all clicks</code></h2>
-    <p class="timeline-box-explanation">just all clicks, no operation applied</p>
-    <div id="clicked-timeline" class="timeline"></div>
-  </section>
-  <section class="timeline-box">
-    <h2 class="timeline-box-heading"><code>.debounceTime(2000)</code></h2>
-    <p class="timeline-box-explanation">
-      <strong>emits only after 2 seconds has passed without&nbsp;another&nbsp;emission</strong>
-      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/debounceTime">docs</a>)<br />
-      example: debouncing search input changes so expensive searches are not run while a user is typing
-    </p>
-    <div id="debounce-timeline" class="timeline"></div>
-  </section>
-  <section class="timeline-box">
-    <h2 class="timeline-box-heading"><code>.throttleTime(2000)</code></h2>
-    <p class="timeline-box-explanation">
-      <strong>emits and then ignores subsequent emissions for&nbsp;2&nbsp;seconds</strong>
-      (<a href="https://rxjs-dev.firebaseapp.com/api/operators/throttleTime">docs</a>)<br />
-      example: throttling "refresh data" action to avoid multiple requests sent at the same time
-    </p>
-    <div id="throttle-timeline" class="timeline"></div>
-  </section> -->
   <script src="js/main.js"></script>
 </body>
 
