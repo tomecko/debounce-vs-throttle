@@ -1,4 +1,4 @@
-$primary: #00838f;
+$primary: #039be5;
 $primaryFont: #eee;
 
 body {
@@ -6,7 +6,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  background: #eee;
+  background: #fafafa;
   font-family: sans-serif;
   height: 100vh;
   min-width: 300px;
@@ -36,7 +36,8 @@ body {
   align-items: stretch;
   display: flex;
 
-  border-bottom: 1px solid #000;
+  background: #ddd;
+  border-bottom: 1px solid #eee;
 
   .timeline-header {
     flex: 1;
@@ -44,13 +45,12 @@ body {
     display: flex;
     flex-direction: column;
 
-    background: #ccc;
     padding-bottom: .5em;
     text-align: center;
 
     h2 {
-      background: #333;
-      color: #eee;;
+      background: $primary;
+      color: $primaryFont;
       font-size: 1.5em;
       margin: 0 0 .5em 0;
       padding: 1em;
@@ -71,6 +71,10 @@ body {
 
   .timeline-header-auxiliary {
     flex: 0 0 auto;
+
+    h2 {
+      font-weight: 400;
+    }
   }
 }
 
@@ -116,13 +120,16 @@ body {
 }
 
 .emit-event {
+  $background: #bbb;
+
   height: 100px;
   width: 100%;
 
-  background: $primary;
+  background: $background;
   border: 0;
-  color: $primaryFont;
+  color: #222;
   cursor: pointer;
+  outline: 0;
   transition: background .2s;
 
   bottom: 0;
@@ -131,7 +138,7 @@ body {
   right: 0;
 
   &:hover {
-    background: darken($primary, 5%);
+    background: darken($background, 5%);
   }
 
   strong {
