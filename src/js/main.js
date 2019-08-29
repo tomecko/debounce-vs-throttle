@@ -11,6 +11,7 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
+import { mapArray } from './array-helpers';
 import { DELAY_TIME, TICK, TIMELINE_LENGTH } from './config';
 import { createElement } from './create-element';
 import { getIdFactory } from './get-id';
@@ -30,26 +31,35 @@ const throttled$ = multi$.pipe(throttleTime(DELAY_TIME));
 
 multi$.connect();
 
-const visualize = (source$, name) => {
-  const sourceTransformed$ = source$.pipe(
-    map(id => ({
-      element: createElement(name, id),
-      id,
-      t: getT(),
-    })),
+const getEvent = name => id => ({
+  element: createElement(name, id),
+  id,
+  t: getT(),
+})
+
+const getTransformed = (source$, name) =>
+  source$.pipe(
+    map(getEvent),
     scan((acc, value) => acc.concat(value), []),
     startWith([]),
     shareReplay(0),
   );
+
+const unpack = ([_, values]) => values;
+const isRecent = ({ t }) => getT() - t < TIMELINE_LENGTH;
+const isSame = (a, b) => a === b || a.length === 0 && b.length === 0;
+const toTimeLeft = value => ({ ...value, t: TIMELINE_LENGTH - getT() + value.t });
+const decorateWithProgress = value => ({ ...value, progress: (value.t / TIMELINE_LENGTH * 100).toFixed(2) });
+
+const visualize = (source$, name) => {
   time$.pipe(
-    withLatestFrom(sourceTransformed$),
-    map(([_, values]) => values),
-    map(values => values.filter(({ t }) => getT() - t < TIMELINE_LENGTH)),
-    distinctUntilChanged((a, b) => a === b || a.length === 0 && b.length === 0),
-    map(values => values.map(value => ({ ...value, t: TIMELINE_LENGTH - getT() + value.t }))),
-    map(values => values.map(value => ({ ...value, progress: (value.t / TIMELINE_LENGTH * 100).toFixed(2) }))),
-  )
-    .subscribe(handleDOM(name));
+    withLatestFrom(getTransformed(source$, name)),
+    map(unpack),
+    map(filterArray(isRecent)),
+    distinctUntilChanged(isSame),
+    map(mapArray(toTimeLeft)),
+    map(mapArray(decorateWithProgress)),
+  ).subscribe(handleDOM(name));
 }
 
 visualize(clicked$, 'clicked');
