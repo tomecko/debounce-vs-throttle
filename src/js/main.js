@@ -20,17 +20,6 @@ import { handleDOM } from './handleDOM';
 const getId = getIdFactory();
 const getT = () => Date.now();
 
-const time$ = new interval(TICK).pipe(map(() => null));
-const clickedRaw$ = new fromEvent(document, 'click').pipe(map(getId));
-
-const multi$ = clickedRaw$.pipe(multicast(() => new Subject()));
-
-const clicked$ = multi$;
-const debounced$ = multi$.pipe(debounceTime(DELAY_TIME));
-const throttled$ = multi$.pipe(throttleTime(DELAY_TIME));
-
-multi$.connect();
-
 const getEvent = name => id => ({
   element: createElement(name, id),
   id,
@@ -61,6 +50,17 @@ const visualize = (source$, name) => {
     map(mapArray(decorateWithProgress)),
   ).subscribe(handleDOM(name));
 }
+
+const time$ = new interval(TICK).pipe(map(() => null));
+const clickedRaw$ = new fromEvent(document, 'click').pipe(map(getId));
+
+const multi$ = clickedRaw$.pipe(multicast(() => new Subject()));
+
+const clicked$ = multi$;
+const debounced$ = multi$.pipe(debounceTime(DELAY_TIME));
+const throttled$ = multi$.pipe(throttleTime(DELAY_TIME));
+
+multi$.connect();
 
 visualize(clicked$, 'clicked');
 visualize(debounced$, 'debounce');
