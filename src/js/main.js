@@ -11,7 +11,7 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { mapArray } from './array-helpers';
+import { filterArray, mapArray } from './array-helpers';
 import { DELAY_TIME, TICK, TIMELINE_LENGTH } from './config';
 import { createElement } from './create-element';
 import { getIdFactory } from './get-id';
@@ -35,11 +35,11 @@ const getEvent = name => id => ({
   element: createElement(name, id),
   id,
   t: getT(),
-})
+});
 
 const getTransformed = (source$, name) =>
   source$.pipe(
-    map(getEvent),
+    map(getEvent(name)),
     scan((acc, value) => acc.concat(value), []),
     startWith([]),
     shareReplay(0),

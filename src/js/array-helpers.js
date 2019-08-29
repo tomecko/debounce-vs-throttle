@@ -1,2 +1,2 @@
-export const filterArray = values => fn => values.filter(fn);
-export const mapArray = values => fn => values.map(fn);
+export const filterArray = fn => values => values.filter(fn);
+export const mapArray = fn => values => values.map(fn);
